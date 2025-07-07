@@ -1,38 +1,186 @@
-.App {
-  text-align: center;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 45 100% 85%;
+    --card: 0 0% 5%;
+    --card-foreground: 45 100% 85%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 45 100% 85%;
+    --primary: 0 84% 50%;
+    --primary-foreground: 45 100% 15%;
+    --secondary: 45 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 45 50% 60%;
+    --accent: 0 84% 50%;
+    --accent-foreground: 45 100% 85%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 45 100% 85%;
+    --border: 0 84% 30%;
+    --input: 0 0% 10%;
+    --ring: 0 84% 50%;
+    --radius: 0.75rem;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    direction: rtl;
+    font-family: "Inter", sans-serif;
+  }
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+/* Custom animations */
+@keyframes spin-slow {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.5), 0 0 40px rgba(239, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(239, 68, 68, 0.8), 0 0 60px rgba(239, 68, 68, 0.5);
+  }
+}
+
+@keyframes flame-flicker {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    opacity: 0.8;
+    transform: scale(1.1) rotate(1deg);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(0.95) rotate(-1deg);
+  }
+  75% {
+    opacity: 0.85;
+    transform: scale(1.05) rotate(0.5deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-flame {
+  animation: flame-flicker 1.5s ease-in-out infinite;
+}
+
+/* Gaming UI Effects */
+.gaming-border {
+  position: relative;
+}
+
+.gaming-border::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ef4444, #eab308, #ef4444, #eab308);
+  border-radius: inherit;
+  z-index: -1;
+  animation: spin-slow 4s linear infinite;
+}
+
+/* Cyberpunk scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ef4444 0%, #eab308 100%);
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.8);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #d97706 100%);
+}
+
+/* Text glow effects */
+.text-glow-red {
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.8), 0 0 20px rgba(239, 68, 68, 0.6);
+}
+
+.text-glow-yellow {
+  text-shadow: 0 0 10px rgba(234, 179, 8, 0.8), 0 0 20px rgba(234, 179, 8, 0.6);
+}
+
+/* Power button effect */
+.power-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.power-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.power-button:hover::before {
+  left: 100%;
+}
+
+/* Gaming card effect */
+.gaming-card {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(139, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  border: 2px solid;
+  border-image: linear-gradient(45deg, #ef4444, #eab308, #ef4444) 1;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Warrior theme */
+.warrior-text {
+  background: linear-gradient(135deg, #ef4444 0%, #eab308 50%, #ef4444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.5));
 }
